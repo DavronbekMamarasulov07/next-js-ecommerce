@@ -23,15 +23,15 @@ const ProductCard = ({ product }) => {
   const routes = useRouter();
   
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (product) => {
     dispatch(
       addToCart({
         ...product,
         quantity: 1,
       })
     );
-    toast.success("Product added to cart")
-  }
+    toast.success(`${product.title} добавлен в корзину`);
+  };
 
 
   const handleAddToWishlist = (product) => {
@@ -99,7 +99,7 @@ const ProductCard = ({ product }) => {
           </span>
         </div>
         <Button
-          onClick={() => handleAddToCart()}
+          onClick={() => handleAddToCart(product)}
           className="bg-[#454545] rounded-2xl !px-[15px] "
         >
           <ShoppingCart />
