@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const { likedProducts } = useSelector((state) => state.like);
-  const { cartItems } = useSelector((state) => state.cart);
   const routes = useRouter();
   
 

@@ -41,9 +41,14 @@ const Detail = ({ id }) => {
   };
 
   const handleDecrement = () => {
-    if (count > 1) {
+
+    if (count > 1 && data.stock > count) {
       setCount(count - 1);
-    } else {
+    }
+    else if (data.stock < count) {
+      toast.error("Товар закончился");
+    }
+    else {
       toast.error("Количество не может быть меньше 1");
     }
   };
