@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
   
   return (
     <Card className=" w-full flex flex-col gap-3 md:gap-[20px] relative hover:scale-105 duration-300 transition-transform  border-none rounded-none hover:shadow-2xl">
-      <CardHeader onClick={() => handleDetail(product)} className="w-full flex items-center justify-center mb-3 ">
+      <CardHeader className="w-full flex items-center justify-center mb-3 ">
         {isProductLiked(product.id) ? (
           <Heart
             style={{ fill: "red", stroke: "red" }}
@@ -84,8 +84,8 @@ const ProductCard = ({ product }) => {
           className="md:hidden block"
         />
       </CardHeader>
-      <CardContent>
-        <p className="text-[#454545] text-[16px] md:text-[20px] max-w-[200px] line-clamp-2">
+      <CardContent onClick={() => handleDetail(product)}>
+        <p className="hover:underline hover:cursor-pointer duration-300 transition-transform text-[#454545] text-[16px] md:text-[20px] max-w-[200px] line-clamp-2">
           {product.title}
         </p>
       </CardContent>
