@@ -14,7 +14,7 @@ const BlogCard = ({ blog }) => {
   
   return (
     <div>
-      <div className="w-full border-b border-[#9F9F9F]">
+      <div className="w-full border-b border-[#c4c4c4] hover:scale-105 duration-300 transition-transform">
         <Image src={blog.image} alt="blog" width={420} height={300} priority />
         <div>
           <h3 className="text-[#454545] text-[20px] font-bold mt-[20px] w-full flex items-start  justify-between">

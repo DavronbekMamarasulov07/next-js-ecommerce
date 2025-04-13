@@ -15,7 +15,7 @@ const CatalogCard = ({ catalog }) => {
         <h3 className="font-medium md:text-[20px]  text-[16px]">
           {catalog.title}
         </h3>
-        <p className="md:flex items-center hidden ">
+        <p className="md:flex items-center hidden whitespace-nowrap">
           {catalog.price}{" "}
           <span>
             {" "}
@@ -41,13 +41,10 @@ const CatalogCard = ({ catalog }) => {
           priority
         />
       </div>
-      <p className="flex items-center md:hidden text-[14px]">
+      <div className="flex items-center md:hidden text-[14px]">
         {catalog.price}{" "}
-        <span>
-          {" "}
-          <MoveRight className="text-[#9F9F9F] ml-1 md:ml-2 hover:ml-4 duration-300 transition-transform " />
-        </span>
-      </p>
+        <MoveRight className="text-[#9F9F9F] ml-1 md:ml-2 hover:ml-4 duration-300 transition-transform " />
+      </div>
     </div>
   );
 };

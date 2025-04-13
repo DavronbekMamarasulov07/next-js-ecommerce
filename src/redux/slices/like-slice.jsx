@@ -2,7 +2,7 @@ import { createSlice  } from "@reduxjs/toolkit";
 import { saveToLocalStorage } from "../../helpers/index";
 
 const initialState = {
-  likedCars: typeof window !== "undefined" && localStorage.getItem("likedCars") ? JSON.parse(localStorage.getItem("likedCars")) : [],
+  likedProducts: typeof window !== "undefined" && localStorage.getItem("likedProducts") ? JSON.parse(localStorage.getItem("likedProducts")) : [],
 };
 
 
@@ -11,25 +11,25 @@ const likeSlice = createSlice({
   initialState,
   reducers: {
     addToLiked: (state, action) => {
-      const existingCarIndex = state.likedCars.findIndex(
-        (car) => car._id === action.payload._id
+      const existingProductIndex = state.likedProducts.findIndex(
+        (product) => product.id === action.payload.id
       );
 
-      if (existingCarIndex === -1) {
-        state.likedCars.push(action.payload);
+      if (existingProductIndex === -1) {
+        state.likedProducts.push(action.payload);
       } else {
-        state.likedCars = state.likedCars.filter(
-          (car) => car._id !== action.payload._id
+        state.likedProducts = state.likedProducts.filter(
+          (product) => product.id !== action.payload.id
         );
       }
 
-      saveToLocalStorage("likedCars", state.likedCars);
+      saveToLocalStorage("likedProducts", state.likedProducts);
     },
     removeFromLiked: (state, action) => {
-      state.likedCars = state.likedCars.filter(
-        (car) => car.id !== action.payload
+      state.likedProducts = state.likedProducts.filter(
+        (product) => product.id !== action.payload
       );
-      saveToLocalStorage("likedCars", state.likedCars);
+      saveToLocalStorage("likedProducts", state.likedProducts);
     },
   },
 });

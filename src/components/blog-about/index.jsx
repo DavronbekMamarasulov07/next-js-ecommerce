@@ -4,7 +4,7 @@ import Container from '../container'
 const BlogAbout = () => {
   return (
     <Container>
-      <div className="w-full flex flex-col md:flex-row  items-start justify-between my-[60px] md:my-[100px]">
+      <div className="w-full flex flex-col lg:flex-row  items-start justify-between my-[60px] lg:my-[100px] md:gap-[30px]">
         <h3 className=" mb-[24px] md:mb-0 text-[#454545] max-w-[330px] text-[28px] font-bold  md:text-[40px]">
           Производство светильников
         </h3>

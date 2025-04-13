@@ -2,28 +2,10 @@ import React from "react";
 import Container from "../container";
 import BlogCard from "../blog-card";
 import ButtonLink from "../button-link";
+import {blogs} from "../../data"
 
-const Blog = () => {
-  const blogs = [
-    {
-      id: 1,
-      image: "/images/blog1.png",
-      title: "Как правильно освещать дом снаружи?",
-      date: "01.01.2024",
-    },
-    {
-      id: 2,
-      image: "/images/blog2.png",
-      title: "Как правильно освещать дом снаружи?",
-      date: "01.01.2024",
-    },
-    {
-      id: 3,
-      image: "/images/blog3.png",
-      title: "Как правильно освещать дом снаружи?",
-      date: "01.01.2024",
-    },
-  ];
+const BlogComponent = () => {
+  
   return (
     <Container>
       <div className="md:mt-[100px] mt-[60px]">
@@ -36,7 +18,7 @@ const Blog = () => {
           </div>
         </div>
         <div className="flex md:flex-wrap overflow-x-auto md:overflow-x-visible gap-4">
-          {blogs.map((blog) => (
+          {blogs?.slice(0, 3).map((blog) => (
             <div className="min-w-[100%] md:min-w-0 md:flex-1" key={blog.id}>
               <BlogCard blog={blog} />
             </div>
@@ -51,4 +33,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default BlogComponent;

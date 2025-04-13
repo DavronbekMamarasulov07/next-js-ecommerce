@@ -12,16 +12,16 @@ const Products = ({products}) => {
             Популярные товары
           </h2>
           <div className="hidden md:flex">
-            <ButtonLink link="/products">Все товары</ButtonLink>
+            <ButtonLink link="/product">Все товары</ButtonLink>
           </div>
         </div>
-        <div className="md:mt-[100px] mt-[60px] grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="md:mt-[100px] mt-[60px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
         <div className="flex md:hidden">
-          <ButtonLink link="/products">Все товары</ButtonLink>
+          <ButtonLink link="/product">Все товары</ButtonLink>
         </div>
       </div>
     </Container>

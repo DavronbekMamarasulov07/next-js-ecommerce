@@ -132,7 +132,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
   aspect-ratio: 1;
@@ -167,3 +166,4 @@ a:hover {
     transform: rotate(1turn)
   }
 }
+

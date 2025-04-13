@@ -6,7 +6,7 @@ import Choice from "@/components/choice";
 import Brand from "@/components/brand";
 import Blog from "@/components/blog";
 import Footer from "@/components/footer";
-import { useGetAllProductsQuery } from "@/redux/api/all-users-api";
+import { useGetAllProductsQuery } from "@/redux/api/all-products-api";
 import Products from "@/components/products";
 import BlogAbout from "@/components/blog-about";
 import ToTopButton from "@/components/toptobottom";
@@ -25,7 +25,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {/* <Hero /> */}
+        <Hero />
         <Catalogs />
         <Choice />
         <Products products={data} />

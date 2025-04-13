@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    turbopack: false,
+  },
   reactStrictMode: true,
   devIndicators: false,
   pageExtensions: ["js", "jsx"],

@@ -1,56 +1,12 @@
 import React from "react";
 import CatalogCard from "../catalog-card";
 import Container from "../container";
-import { MoveRight } from "lucide-react";
-import { Button } from "../ui/button";
 import ButtonLink from "../button-link";
+import { catalogs } from "../../data";
 
 const Catalogs = () => {
 
-  const catalogs = [
-    {
-      id: 1,
-      title: "Люстры",
-      link: "/catalog",
-      image: "/images/catalog1.png",
-      price: "От 540₽",
-    },
-    {
-      id: 2,
-      title: "Светильники",
-      link: "/catalog",
-      image: "/images/catalog2.png",
-      price: "От 540₽",
-    },
-    {
-      id: 3,
-      title: "Бра",
-      link: "/catalog",
-      image: "/images/catalog3.png",
-      price: "От 540₽",
-    },
-    {
-      id: 4,
-      title: "Торшеры",
-      link: "/catalog",
-      image: "/images/catalog4.png",
-      price: "От 540₽",
-    },
-    {
-      id: 5,
-      title: "Настольные лампы",
-      link: "/catalog",
-      image: "/images/catalog5.png",
-      price: "От 540₽",
-    },
-    {
-      id: 6,
-      title: "Споты",
-      link: "/catalog",
-      image: "/images/catalog6.png",
-      price: "От 540₽",
-    },
-  ];
+  
 
  
 

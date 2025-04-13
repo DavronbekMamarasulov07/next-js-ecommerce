@@ -12,7 +12,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Drawer,
@@ -21,13 +21,28 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+  const { likedProducts } = useSelector((state) => state.like);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [countCartItems, setCountCartItems] = useState(cartItems?.length || 0);
+  const [countLikedProducts, setCountLikedProducts] = useState(
+    likedProducts?.length || 0
+  );
+
   const router = useRouter();
+
   const handleCatalogBtnClick = () => {
     router.push("/");
   };
-  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setCountCartItems(cartItems.length);
+    setCountLikedProducts(likedProducts.length);
+  }, [cartItems, likedProducts]);
   return (
     <Container>
       <div className="py-2 text-sm text-gray-600 hidden lg:flex justify-between">
@@ -102,13 +117,15 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-6">
             <Link
-              href="/favorites"
+              href="/wishlist"
               className="flex flex-col items-center text-xs relative"
             >
               <Heart size={20} className="mb-1" />
-              <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                2
-              </span>
+              {/* {countLikedProducts == 0 && (
+                <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                  {countLikedProducts}
+                </span>
+              )} */}
               <span>Избранное</span>
             </Link>
             <Link href="/" className="flex flex-col items-center text-xs">
@@ -120,9 +137,13 @@ const Navbar = () => {
               className="flex flex-col items-center text-xs relative"
             >
               <ShoppingCart size={20} className="mb-1" />
-              <span className="absolute -top-1 right-[6px] bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                2
-              </span>
+              {/* {
+                countCartItems == 0 && (
+                  <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                    {countCartItems}
+                  </span>
+                )
+              } */}
               <span>Корзина</span>
             </Link>
           </div>
@@ -134,9 +155,11 @@ const Navbar = () => {
             </Link>
             <Link href="/cart" className="text-gray-700 relative">
               <ShoppingCart size={22} />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                2
-              </span>
+              {/* {countCartItems == 0 && (
+                <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                  {countCartItems}
+                </span>
+              )} */}
             </Link>
           </div>
         </div>
@@ -167,13 +190,17 @@ const Navbar = () => {
               <X size={30} onClick={() => setIsOpen(!isOpen)} />
               <div className="flex items-center space-x-6">
                 <Link
-                  href="/favorites"
+                  href="/wishlist"
                   className="flex flex-col items-center text-xs relative"
                 >
                   <Heart size={30} className="mb-1" />
-                  <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    2
-                  </span>
+                  {/* {
+                    countLikedProducts == 0 && (
+                      <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                        {countLikedProducts}
+                      </span>
+                    )
+                 } */}
                 </Link>
                 <Link href="/" className="flex flex-col items-center text-xs">
                   <ChartNoAxesColumnIncreasing size={30} className="mb-1" />
@@ -183,9 +210,13 @@ const Navbar = () => {
                   className="flex flex-col items-center text-xs relative"
                 >
                   <ShoppingCart size={30} className="mb-1" />
-                  <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    2
-                  </span>
+                  {/* {
+                    countCartItems == 0 && (
+                      <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                        {countCartItems}
+                      </span>
+                    )
+                  } */}
                 </Link>
               </div>
             </DrawerTitle>

@@ -1,28 +1,13 @@
+'use client';
 import React from "react";
 import Container from "../container";
 import BrandCard from "../brand-card";
 import { Button } from "../ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
+import { brands } from "../../data";
 
 const Brand = () => {
-  const brands = [
-    {
-      id: 1,
-      image: "/images/brand1.png",
-    },
-    {
-      id: 2,
-      image: "/images/brand2.png",
-    },
-    {
-      id: 3,
-      image: "/images/brand3.png",
-    },
-    {
-      id: 4,
-      image: "/images/brand1.png",
-    },
-  ];
+  
   return (
     <Container>
       <div className="md:mt-[100px] mt-[60px]">
