@@ -17,6 +17,7 @@ import BlogAbout from '../blog-about'
 
 
 const AboutComponent = () => {
+  
   return (
     <div>
       <Navbar />
