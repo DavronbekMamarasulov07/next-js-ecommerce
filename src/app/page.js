@@ -21,6 +21,8 @@ export default function Home() {
     );
   }
 
+  const filterData = data?.filter((item) => item.stock > 0);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -28,7 +30,7 @@ export default function Home() {
         <Hero />
         <Catalogs />
         <Choice />
-        <Products products={data} />
+        <Products products={filterData} />
         <Brand />
         <Blog />
         <BlogAbout />

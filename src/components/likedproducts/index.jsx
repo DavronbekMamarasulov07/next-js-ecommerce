@@ -40,7 +40,7 @@ const LikedProducts = () => {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <div className="mt-[30px]">
+            <div className="mt-[30px] ">
               {likedProducts.length > 0 && (
                 <h3 className="text-[#454545] md:text-[44px] font-bold text-[28px]">
                   Избранное
@@ -53,19 +53,22 @@ const LikedProducts = () => {
                   ))}
                 </div>
               ) : (
-                <div className="bg-[#f3f3f3] md:h-[400px] h-[300px] mt-[30px] mb-[70px] rounded-3xl w-full flex items-center justify-center flex-col">
-                  <Heart size={150} className="" color="#cfcfcf" />
+                <div className="py-[50px] px-5 bg-[#f3f3f3] mt-[30px] mb-[70px] rounded-3xl w-full flex items-center justify-center flex-col">
+                  <Heart
+                    className="w-[50px] h-[50px] md:w-[80px] md:h-[80px]"
+                    color="#cfcfcf"
+                  />
                   <div className="text-center">
-                    <h3 className="text-[#454545] md:text-[44px] font-bold text-[28px]">
-                      Избранное пусто
+                    <h3 className="text-[#454545] md:text-[40px] font-bold text-[28px]">
+                      Корзина пусто
                     </h3>
-                    <p className="text-[#9f9f9f]">
-                      В ваших избранных пока нет товаров. Мои интересные товары
-                      вы найдете на странице "Покупки"
+                    <p className="text-[#9f9f9f] text-[14px] md:text-[20px] max-w-[600px]">
+                      Добавьте товары в корзину, чтобы оформить заказ и начать
+                      покупки
                     </p>
                     <Button
                       variant="default"
-                      onClick={() => routes.push("/")}
+                      onClick={() => routes.push("/product")}
                       className="bg-[#454545] rounded-4xl h-[40px] !px-[30px] text-[16px] mt-[30px]"
                     >
                       Перейти к покупкам

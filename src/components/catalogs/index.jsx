@@ -6,10 +6,6 @@ import { catalogs } from "../../data";
 
 const Catalogs = () => {
 
-  
-
- 
-
   return (
     <Container>
       <div className="md:mt-[100px] mt-[60px]">

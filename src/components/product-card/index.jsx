@@ -12,7 +12,6 @@ import { Heart, ShoppingCart } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from "react-redux";
 import { addToLiked } from "@/redux/slices/like-slice";
-import { addToCart } from "@/redux/slices/cart-slice";
 import { useRouter } from "next/navigation";
 
 
@@ -22,15 +21,7 @@ const ProductCard = ({ product }) => {
   const routes = useRouter();
   
 
-  const handleAddToCart = (product) => {
-    dispatch(
-      addToCart({
-        ...product,
-        quantity: 1,
-      })
-    );
-    toast.success(`${product.title} добавлен в корзину`);
-  };
+  
 
 
   const handleAddToWishlist = (product) => {
@@ -51,9 +42,11 @@ const ProductCard = ({ product }) => {
   };
 
   
+
+  
   return (
     <Card className=" w-full flex flex-col gap-3 md:gap-[20px] relative hover:scale-105 duration-300 transition-transform  border-none rounded-none hover:shadow-2xl">
-      <CardHeader className="w-full flex items-center justify-center mb-3 ">
+      <CardHeader className="w-full flex items-center justify-center mb-3 flex-1">
         {isProductLiked(product.id) ? (
           <Heart
             style={{ fill: "red", stroke: "red" }}
@@ -90,19 +83,16 @@ const ProductCard = ({ product }) => {
       </CardContent>
       <CardFooter className="w-full flex items-end justify-between">
         <div className="flex  flex-col items-start">
-          <span className="text-[#9F9F9F] md:text-[16px] line-through">
+          <span className="text-[#9F9F9F] text-[14px] md:text-[16px] line-through">
             {product.price}₽
           </span>
-          <span className="text-[#454545] md:text-[20px]">
+          <span className="text-[#c00000] text-[16px]  md:text-[20px]">
             {product.discount_price}₽
           </span>
         </div>
-        <Button
-          onClick={() => handleAddToCart(product)}
-          className="bg-[#454545] rounded-2xl !px-[15px] "
-        >
-          <ShoppingCart />
-        </Button>
+        <span onClick={() => handleDetail(product)} className='cursor-pointer border border-[#d9d9d9] p-1 rounded-full'>
+          <Image src="/images/bag.svg" alt="arrow" width={24} height={24} />
+        </span>
       </CardFooter>
     </Card>
   );

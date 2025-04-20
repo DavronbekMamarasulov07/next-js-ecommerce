@@ -38,28 +38,39 @@ export const blogs = [
 ];
 
 
- export const heroImages = [
-   {
-     id: 1,
-     image: "/images/hero.png",
-   },
-   {
-     id: 2,
-     image: "/images/hero.png",
-   },
-   {
-     id: 3,
-     image: "/images/hero.png",
-   },
-   {
-     id: 4,
-     image: "/images/hero.png",
-   },
-   {
-     id: 5,
-     image: "/images/hero.png",
-   },
- ];
+export const heroData = [
+  {
+    id: 1,
+    image: "/images/hero.png",
+    title: "Скидка 15% \n на все подвесные светильники",
+    subtitle: "до 5 февраля",
+  },
+  {
+    id: 2,
+    image: "/images/hero.png",
+    title: "Летняя распродажа \n на уличные фонари",
+    subtitle: "только до 10 июня",
+  },
+  {
+    id: 3,
+    image: "/images/hero.png",
+    title: "Новая коллекция \n настольных ламп",
+    subtitle: "уже в продаже",
+  },
+  {
+    id: 4,
+    image: "/images/hero.png",
+    title: "Только сегодня! \n Скидка на торшеры",
+    subtitle: "успей до полуночи",
+  },
+  {
+    id: 5,
+    image: "/images/hero.png",
+    title: "Акция недели \n на потолочные светильники",
+    subtitle: "до воскресенья",
+  },
+];
+
 
  export const catalogs = [
    {
@@ -121,6 +132,22 @@ export const blogs = [
    },
    {
      id: 4,
+     image: "/images/brand1.png",
+   },
+   {
+     id: 5,
+     image: "/images/brand1.png",
+   },
+   {
+     id: 6,
+     image: "/images/brand2.png",
+   },
+   {
+     id: 7,
+     image: "/images/brand3.png",
+   },
+   {
+     id: 8,
      image: "/images/brand1.png",
    },
  ];

@@ -4,7 +4,7 @@ const nextConfig = {
   devIndicators: false,
   pageExtensions: ["js", "jsx"],
   images: {
-    domains: ["i.postimg.cc"], // tashqi ruxsat etilgan rasm domenlari shu yerga yoziladi
+    domains: ["i.postimg.cc", "www.mytheresa.com"], // tashqi ruxsat etilgan rasm domenlari shu yerga yoziladi
   },
 };
 

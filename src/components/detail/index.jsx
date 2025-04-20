@@ -11,6 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useGetProductQuery } from "@/redux/api/all-products-api";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
@@ -20,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToLiked } from "@/redux/slices/like-slice";
 import { addToCart } from "@/redux/slices/cart-slice";
 const Detail = ({ id }) => {
+  const [sizeSelected, setSizeSelected] = useState("" || null);
   const { data, isLoading, isFetching } = useGetProductQuery(id);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
@@ -61,14 +63,23 @@ const Detail = ({ id }) => {
     }
   };
 
-  const { cartItems } = useSelector((state) => state.cart);
 
-  console.log(cartItems);
+
+  const handleSizeChange = (size) => {
+    setSizeSelected(size);
+    
+  };
+
 
   const handleAddToCart = () => {
+    if (!sizeSelected) {
+      toast.error("Выберите размер");
+      return;
+    }
     dispatch(
       addToCart({
         ...product,
+        selectedSize: sizeSelected,
         quantity: count,
       })
     );
@@ -110,7 +121,7 @@ const Detail = ({ id }) => {
                       />
                     </Card>
                   </div>
-                  <div className="w-full  flex flex-col items-start md:gap-[40px] gap-[20px]">
+                  <div className="w-full  flex flex-col items-start md:gap-[30px] gap-[20px]">
                     <h3 className="text-[28px] md:text-[40px] font-medium  md:leading-12">
                       {product.title}
                     </h3>
@@ -128,7 +139,7 @@ const Detail = ({ id }) => {
                           <span className="text-[#e00d0d]">Нет в наличии</span>
                         )}
                       </div>
-                      <div className="flex gap-2 w-full">
+                      <div className="flex  gap-2 w-full">
                         <span className="bg-[#d3d3d3] w-[30px] h-[30px] rounded-full flex items-center justify-center p-2 hover:bg-[#454545] duration-300 transition-transform">
                           <Image
                             src="/images/ok.svg"
@@ -181,6 +192,28 @@ const Detail = ({ id }) => {
                     </div>
                     <div className="max-w-[85%]">
                       <p className="text-[#4C4C4C]">{product.description}</p>
+                    </div>{" "}
+                    <div>
+                      <RadioGroup
+                        onValueChange={handleSizeChange}
+                        className="flex items-center radio-buttons"
+                      >
+                        {product.size.map((size) => (
+                          <>
+                            <RadioGroupItem
+                              value={size}
+                              id={size}
+                              className="sr-only"
+                            />
+                            <label
+                              htmlFor={size}
+                              className="cursor-pointer size-label text-sm font-medium text-gray-700 p-2 rounded-full border border-gray-300 flex items-center justify-center w-8 h-8 bg-white"
+                            >
+                              {size}
+                            </label>
+                          </>
+                        ))}
+                      </RadioGroup>
                     </div>
                     <div className="flex items-center justify-start gap-4">
                       <div className="bg-[#ffffff] rounded-md border p-[17px] flex items-center gap-8 leading-0">
@@ -191,13 +224,11 @@ const Detail = ({ id }) => {
                           -
                         </span>
                         <span className="text-[20px] min-w-[25px] text-center ">
-                          {
-                            product.stock === 0 ? (
-                              <span className="text-[#e00d0d]">0</span>
-                            ) : (
-                              count
-                            )
-                          }
+                          {product.stock === 0 ? (
+                            <span className="text-[#e00d0d]">0</span>
+                          ) : (
+                            count
+                          )}
                         </span>
                         <span
                           onClick={() => handleIncrement()}
@@ -206,9 +237,23 @@ const Detail = ({ id }) => {
                           +
                         </span>
                       </div>
-                      <Button disabled={product.stock === 0} onClick={() => handleAddToCart(product)}>
-                        В корзину
-                      </Button>
+
+                      {sizeSelected && (
+                        <Button
+                          disabled={product.stock === 0}
+                          variant={"outline"}
+                          className="bg-[#F2F2F2]"
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          В корзину
+                          <Image
+                            src="/images/bag.svg"
+                            alt="arrow"
+                            width={24}
+                            height={24}
+                          />
+                        </Button>
+                      )}
                       <Button
                         variant={"outline"}
                         onClick={() => handleAddToWishlist(product)}

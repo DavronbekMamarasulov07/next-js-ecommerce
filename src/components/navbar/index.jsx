@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import Container from "../container";
@@ -12,7 +12,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Drawer,
@@ -25,18 +25,24 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { cartItems } = useSelector((state) => state.cart);
-  const countCartItems = cartItems.length;
   const { likedProducts } = useSelector((state) => state.like);
-  const countLikedProducts = likedProducts.length;
   const router = useRouter();
+
   const handleCatalogBtnClick = () => {
     router.push("/");
   };
 
-  
   const [isOpen, setIsOpen] = useState(false);
+
+  // Prevent hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <Container>
+      {/* Top Links */}
       <div className="py-2 text-sm text-gray-600 hidden lg:flex justify-between">
         <div className="flex space-x-6">
           <Link href="/about" className="hover:text-gray-900">
@@ -45,8 +51,8 @@ const Navbar = () => {
           <Link href="/delivery" className="hover:text-gray-900">
             Доставка и оплата
           </Link>
-          <Link href="/catalog" className="hover:text-gray-900">
-            Каталог
+          <Link href="/product" className="hover:text-gray-900">
+            Продукты
           </Link>
           <Link href="/guarantee" className="hover:text-gray-900">
             Гарантия
@@ -58,15 +64,20 @@ const Navbar = () => {
             Блог
           </Link>
         </div>
-        <div className="flex items-center gap-[24px]">
+        <div className="flex items-center gap-[14px]">
           <Link className="text-black font-bold" href="tel: 8 (800) 890-46-56">
             8 (800) 890-46-56
           </Link>
-          <span>Заказать звонок</span>
+          <Link className="" href="tel: 8 (800) 890-46-56">
+            Заказать звонок
+          </Link>
         </div>
       </div>
+
+      {/* Main Header */}
       <header className="mt-5 relative">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
+          {/* Logo & Catalog */}
           <div className="flex items-center">
             <div
               onClick={() => setIsOpen(!isOpen)}
@@ -75,11 +86,10 @@ const Navbar = () => {
               <ChartNoAxesColumn />
             </div>
             <div
-              onClick={() => handleCatalogBtnClick()}
+              onClick={handleCatalogBtnClick}
               className="flex items-center hover:cursor-pointer"
             >
               <div className="bg-[#454545] text-white p-1 mr-2 text-xs rounded-[4px]">
-                {" "}
                 <Sun />
               </div>
               <span className="font-semibold text-lg md:text-[40px]">
@@ -87,13 +97,14 @@ const Navbar = () => {
               </span>
             </div>
             <Link href="/" className="hover:cursor-pointer">
-              <button className="ml-6 bg-[#454545] rounded-4xl text-white px-4 py-2  text-sm hidden md:flex items-center gap-2 ">
+              <button className="ml-6 bg-[#454545] rounded-4xl text-white px-4 py-2 text-sm hidden md:flex items-center gap-2">
                 <AlignCenter />
                 Каталог
               </button>
             </Link>
           </div>
 
+          {/* Search */}
           <div className="flex-1 max-w-xl mx-4 lg:block hidden">
             <div className="relative">
               <input
@@ -107,55 +118,61 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/wishlist"
               className="flex flex-col items-center text-xs relative"
             >
-              <Heart size={20} className="mb-1" /> 
-              {countLikedProducts > 0 && (
+              <Heart size={20} className="mb-1" />
+              {mounted && (
                 <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                  {countLikedProducts}
+                  {likedProducts.length}
                 </span>
               )}
               <span>Избранное</span>
             </Link>
-            <Link href="/" className="flex flex-col items-center text-xs">
-              <ChartNoAxesColumnIncreasing size={20} className="mb-1" />
-              <span>Сравнение</span>
-            </Link>
+
             <Link
               href="/cart"
               className="flex flex-col items-center text-xs relative"
             >
               <ShoppingCart size={20} className="mb-1" />
-              {
-                countCartItems > 0 && (
-                  <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                    {countCartItems}
-                  </span>
-                )
-              }
+              {mounted && (
+                <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                  {cartItems.length}
+                </span>
+              )}
               <span>Корзина</span>
             </Link>
           </div>
 
           {/* Mobile Icons */}
           <div className="flex items-center space-x-4 md:hidden">
-            <Link href="/search" className="text-gray-700">
-              <Search size={22} />
+            <Link
+              href="/wishlist"
+              className="flex flex-col items-center text-xs relative"
+            >
+              <Heart size={22} className="mb-1" />
+              {mounted && (
+                <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                  {likedProducts.length}
+                </span>
+              )}
             </Link>
             <Link href="/cart" className="text-gray-700 relative">
               <ShoppingCart size={22} />
-              {countCartItems > 0 && (
+              {mounted && (
                 <span className="absolute -top-1 right-3 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                  {countCartItems}
+                  {cartItems.length}
                 </span>
               )}
             </Link>
           </div>
         </div>
-        <div className="w-full  block lg:hidden mt-[20px]">
+
+        {/* Mobile Search */}
+        <div className="w-full block lg:hidden mt-[20px]">
           <div className="relative">
             <input
               type="text"
@@ -169,7 +186,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* mobile uchun  menu*/}
+      {/* Mobile Drawer */}
       <Drawer
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -186,13 +203,11 @@ const Navbar = () => {
                   className="flex flex-col items-center text-xs relative"
                 >
                   <Heart size={30} className="mb-1" />
-                  {
-                    countLikedProducts > 0 && (
-                      <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                        {countLikedProducts}
-                      </span>
-                    )
-                 }
+                  {mounted && (
+                    <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {likedProducts.length}
+                    </span>
+                  )}
                 </Link>
                 <Link href="/" className="flex flex-col items-center text-xs">
                   <ChartNoAxesColumnIncreasing size={30} className="mb-1" />
@@ -202,67 +217,51 @@ const Navbar = () => {
                   className="flex flex-col items-center text-xs relative"
                 >
                   <ShoppingCart size={30} className="mb-1" />
-                  
-                  {
-                    countCartItems > 0 && (
-                      <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                        {countCartItems}
-                      </span>
-                    )
-                  }
+                  {mounted && (
+                    <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {cartItems.length}
+                    </span>
+                  )}
                 </Link>
               </div>
             </DrawerTitle>
-            <div className="flex flex-col  items-center text-[#8f8e8e]   w-full mt-[20px]">
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/about"
-                className="py-[14px] w-full text-center border-t border-[#8f8e8e] "
-              >
-                О компании
-              </Link>
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/delivery"
-                className="py-[18px] w-full text-center border-t border-[#8f8e8e] "
-              >
-                Доставка и оплата
-              </Link>
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/catalog"
-                className="py-[18px] w-full text-center border-t border-[#8f8e8e] "
-              >
-                Каталог
-              </Link>
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/guarantee"
-                className="py-[18px] w-full text-center border-t border-[#8f8e8e] "
-              >
-                Гарантия
-              </Link>
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/contact"
-                className="py-[18px] w-full text-center border-t border-[#8f8e8e] "
-              >
-                Контакты
-              </Link>
-              <Link
-                onClick={() => setIsOpen(!isOpen)}
-                href="/blog"
-                className="py-[18px] w-full text-center border-y border-[#8f8e8e] "
-              >
-                Блог
-              </Link>
+            <div className="flex flex-col items-center text-[#8f8e8e] w-full mt-[20px]">
+              {[
+                "about",
+                "delivery",
+                "catalog",
+                "guarantee",
+                "contact",
+                "blog",
+              ].map((link, i) => (
+                <Link
+                  key={i}
+                  onClick={() => setIsOpen(false)}
+                  href={`/${link}`}
+                  className={`py-[18px] w-full text-center border-t border-[#8f8e8e] ${
+                    link === "blog" ? "border-y" : ""
+                  }`}
+                >
+                  {link === "about"
+                    ? "О компании"
+                    : link === "delivery"
+                    ? "Доставка и оплата"
+                    : link === "catalog"
+                    ? "Каталог"
+                    : link === "guarantee"
+                    ? "Гарантия"
+                    : link === "contact"
+                    ? "Контакты"
+                    : "Блог"}
+                </Link>
+              ))}
             </div>
           </DrawerHeader>
 
           <DrawerFooter>
             <Link
               href="/catalog"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsOpen(false)}
               className="bg-[#454545] rounded-4xl text-white flex items-center gap-2 justify-center py-[12px]"
             >
               <ChartNoAxesColumn size={30} className="rotate-90" />
