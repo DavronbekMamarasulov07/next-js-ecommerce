@@ -121,11 +121,12 @@ const CartComponent = () => {
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="w-full active:scale-95 duration-200 transition-transform flex items-center justify-between gap-2">
+                      <Button
+                        onClick={() => handleCheckout()}
+                        className="w-full active:scale-95 duration-200 transition-transform flex items-center justify-between gap-2"
+                      >
                         <span>{total + shipping}₽</span>
-                        <span onClick={() => handleCheckout()}>
-                          Оформить заказ →
-                        </span>
+                        <span>Оформить заказ →</span>
                       </Button>
                     </CardFooter>
                   </Card>
