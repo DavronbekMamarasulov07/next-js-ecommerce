@@ -25,6 +25,7 @@ import {
 import { clearCart } from "@/redux/slices/cart-slice";
 import { toast } from "sonner";
 import CartCard from "../cart-card";
+import axios from "axios";
 
 const CartComponent = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -36,17 +37,48 @@ const CartComponent = () => {
     setMounted(true);
   }, []);
 
-  const handleCheckout = () => {
-    toast.success("Заказ оформлен");
+  const handleCheckout = async () => {
+    console.log(cartItems);
+
+    if (!cartItems) {
+      toast.error("Please enter some text.");
+      return;
+    }
+    const botToken = "8164288338:AAEhi9fEZUL7niaaXYmQqOtdcB889elM-zg";
+    const chatId = "5269056571";
+    try {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        chat_id: chatId,
+        text: `${cartItems.map(
+          (product, index) =>
+            `\n\n\n\nПродукт №: ${index + 1}
+ID: ${product.id}
+Товар: ${product.title}
+Количество: ${product.quantity}
+Цена: ${product.discount_price}₽
+Итого: ${product.discount_price * product.quantity}₽
+
+Ссылка на товар: https://next-js-ecommerce-jade.vercel.app/product/${product.id}`
+        )} `,
+      });
+      toast.success("Заказ оформлен,скоро наш менеджер свяжется с вами");
+    } catch (error) {
+      console.error("Error sending message to Davronbek:", error);
+      toast.error("Failed to send message.");
+    }
+
     dispatch(clearCart());
-  }
+  };
 
   const handleClearCart = () => {
     dispatch(clearCart());
   };
 
-  const total = cartItems.reduce((acc, item) => acc + (item.discount_price * item.quantity), 0);
-  const shipping = 200
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.discount_price * item.quantity,
+    0
+  );
+  const shipping = 200;
 
   if (!mounted) return null; // prevents hydration error
   return (
@@ -108,19 +140,28 @@ const CartComponent = () => {
                       <div className="flex items-center justify-between gap-2">
                         <p>Субтотальный:</p>
                         <strong className="underline">
-                          {total.toLocaleString()}₽
+                          {total
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
                         </strong>
                       </div>
                       <div className="flex items-center justify-between gap-2">
                         <p>Доставка:</p>
                         <strong className="underline">
-                          {shipping.toLocaleString()}₽
+                          {shipping
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
                         </strong>
                       </div>
                       <div className="flex items-center justify-between gap-2">
                         <p>Итого:</p>
                         <strong className="underline">
-                          {(total + shipping).toLocaleString()}₽
+                          {(total + shipping)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
                         </strong>
                       </div>
                     </CardContent>
@@ -129,7 +170,12 @@ const CartComponent = () => {
                         onClick={() => handleCheckout()}
                         className="w-full active:scale-95 duration-200 transition-transform flex items-center justify-between gap-2"
                       >
-                        <span>{(total + shipping).toLocaleString()}₽</span>
+                        <span>
+                          {(total + shipping)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
+                        </span>
                         <span>Оформить заказ →</span>
                       </Button>
                     </CardFooter>

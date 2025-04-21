@@ -98,15 +98,24 @@ const TableComponent = ({ products }) => {
                 {product.discount_price ? (
                   <>
                     <span className="text-red-600 font-medium">
-                      {product.discount_price.toLocaleString()}₽
+                      {product.discount_price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      ₽
                     </span>
                     <span className="text-gray-400 line-through text-sm ml-2">
-                      {product.price.toLocaleString()}₽
+                      {product.price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      ₽
                     </span>
                   </>
                 ) : (
                   <span className="font-medium">
-                    {product.price.toLocaleString()}₽
+                    {product.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    ₽
                   </span>
                 )}
               </div>

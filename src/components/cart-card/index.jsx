@@ -69,23 +69,32 @@ const CartCard = ({ products }) => {
                   </span>
                   <strong>
                     <span className="text-[16px] text-red-600 font-medium">
-                      {(
-                        product.discount_price * product.quantity
-                      ).toLocaleString()}
+                      {(product.discount_price * product.quantity)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                       ₽
                     </span>
                     <span className="text-[14px] text-gray-400 line-through text-sm ml-2">
-                      {(product.price * product.quantity).toLocaleString()}₽
+                      {(product.price * product.quantity)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      ₽
                     </span>
                   </strong>
                   {product.quantity > 1 && (
                     <div>
                       <strong>
                         <span className="text-[14px] text-red-600 font-medium">
-                          {product.discount_price.toLocaleString()}₽
+                          {product.discount_price
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
                         </span>
                         <span className="text-[12px] text-gray-400 line-through text-sm ml-2">
-                          {product.price.toLocaleString()}₽
+                          {product.price
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          ₽
                         </span>{" "}
                       </strong>
                       <span className="text-[12px] text-[#898989]">/ шт</span>

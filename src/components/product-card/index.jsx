@@ -84,10 +84,13 @@ const ProductCard = ({ product }) => {
       <CardFooter className="w-full flex items-end justify-between">
         <div className="flex  flex-col items-start">
           <span className="text-[#9F9F9F] text-[14px] md:text-[16px] line-through">
-            {product.price.toLocaleString()}₽
+            {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}₽
           </span>
           <span className="text-[#c00000] text-[16px]  md:text-[20px]">
-            {product.discount_price.toLocaleString()}₽
+            {product.discount_price
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            ₽
           </span>
         </div>
         <span

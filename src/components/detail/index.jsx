@@ -97,7 +97,11 @@ const Detail = ({ id }) => {
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/">Главная</BreadcrumbLink>
                 </BreadcrumbItem>
+
                 <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink >Деталь товара</BreadcrumbLink>
+                </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
             {!isLoading || !isFetching ? (
@@ -184,10 +188,16 @@ const Detail = ({ id }) => {
                     </div>
                     <div className="flex items-end gap-3 md:gap-4">
                       <strong className="text-[28px] md:text-[40px] text-[#101010] leading-none">
-                        {product.discount_price} ₽
+                        {product.discount_price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                        ₽
                       </strong>
                       <span className="text-[#9F9F9F] line-through">
-                        {product.price} ₽
+                        {product.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                        ₽
                       </span>
                     </div>
                     <div className="max-w-[85%]">
@@ -238,20 +248,20 @@ const Detail = ({ id }) => {
                         </span>
                       </div>
 
-                        <Button
-                          disabled={product.stock === 0}
-                          variant={"outline"}
-                          className="bg-[#F2F2F2]"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          В корзину
-                          <Image
-                            src="/images/bag.svg"
-                            alt="arrow"
-                            width={24}
-                            height={24}
-                          />
-                        </Button>
+                      <Button
+                        disabled={product.stock === 0}
+                        variant={"outline"}
+                        className="bg-[#F2F2F2]"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        В корзину
+                        <Image
+                          src="/images/bag.svg"
+                          alt="arrow"
+                          width={24}
+                          height={24}
+                        />
+                      </Button>
                       <Button
                         variant={"outline"}
                         onClick={() => handleAddToWishlist(product)}
