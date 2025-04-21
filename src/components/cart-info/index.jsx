@@ -107,16 +107,20 @@ const CartComponent = () => {
                     <CardContent className="flex flex-col gap-2 border-b pb-4">
                       <div className="flex items-center justify-between gap-2">
                         <p>Субтотальный:</p>
-                        <strong className="underline">{total}₽</strong>
+                        <strong className="underline">
+                          {total.toLocaleString()}₽
+                        </strong>
                       </div>
                       <div className="flex items-center justify-between gap-2">
                         <p>Доставка:</p>
-                        <strong className="underline">{shipping}₽</strong>
+                        <strong className="underline">
+                          {shipping.toLocaleString()}₽
+                        </strong>
                       </div>
                       <div className="flex items-center justify-between gap-2">
                         <p>Итого:</p>
                         <strong className="underline">
-                          {total + shipping}₽
+                          {(total + shipping).toLocaleString()}₽
                         </strong>
                       </div>
                     </CardContent>
@@ -125,7 +129,7 @@ const CartComponent = () => {
                         onClick={() => handleCheckout()}
                         className="w-full active:scale-95 duration-200 transition-transform flex items-center justify-between gap-2"
                       >
-                        <span>{total + shipping}₽</span>
+                        <span>{(total + shipping).toLocaleString()}₽</span>
                         <span>Оформить заказ →</span>
                       </Button>
                     </CardFooter>

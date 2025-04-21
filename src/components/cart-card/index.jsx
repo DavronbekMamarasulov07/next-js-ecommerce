@@ -69,20 +69,23 @@ const CartCard = ({ products }) => {
                   </span>
                   <strong>
                     <span className="text-[16px] text-red-600 font-medium">
-                      {product.discount_price * product.quantity}₽
+                      {(
+                        product.discount_price * product.quantity
+                      ).toLocaleString()}
+                      ₽
                     </span>
                     <span className="text-[14px] text-gray-400 line-through text-sm ml-2">
-                      {product.price * product.quantity}₽
+                      {(product.price * product.quantity).toLocaleString()}₽
                     </span>
                   </strong>
                   {product.quantity > 1 && (
                     <div>
                       <strong>
                         <span className="text-[14px] text-red-600 font-medium">
-                          {product.discount_price}₽
+                          {product.discount_price.toLocaleString()}₽
                         </span>
                         <span className="text-[12px] text-gray-400 line-through text-sm ml-2">
-                          {product.price}₽
+                          {product.price.toLocaleString()}₽
                         </span>{" "}
                       </strong>
                       <span className="text-[12px] text-[#898989]">/ шт</span>

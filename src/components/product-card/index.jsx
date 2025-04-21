@@ -84,13 +84,16 @@ const ProductCard = ({ product }) => {
       <CardFooter className="w-full flex items-end justify-between">
         <div className="flex  flex-col items-start">
           <span className="text-[#9F9F9F] text-[14px] md:text-[16px] line-through">
-            {product.price}₽
+            {product.price.toLocaleString()}₽
           </span>
           <span className="text-[#c00000] text-[16px]  md:text-[20px]">
-            {product.discount_price}₽
+            {product.discount_price.toLocaleString()}₽
           </span>
         </div>
-        <span onClick={() => handleDetail(product)} className='cursor-pointer border border-[#d9d9d9] p-1 rounded-full'>
+        <span
+          onClick={() => handleDetail(product)}
+          className="cursor-pointer border border-[#d9d9d9] p-1 rounded-full"
+        >
           <Image src="/images/bag.svg" alt="arrow" width={24} height={24} />
         </span>
       </CardFooter>
