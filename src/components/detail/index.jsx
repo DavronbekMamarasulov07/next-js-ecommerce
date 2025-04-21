@@ -83,7 +83,7 @@ const Detail = ({ id }) => {
         quantity: count,
       })
     );
-    toast.success("Product added to cart");
+    toast.success("Товар добавлен в корзину");
     setCount(1);
   };
   return (
