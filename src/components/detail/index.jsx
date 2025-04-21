@@ -238,7 +238,6 @@ const Detail = ({ id }) => {
                         </span>
                       </div>
 
-                      {sizeSelected && (
                         <Button
                           disabled={product.stock === 0}
                           variant={"outline"}
@@ -253,7 +252,6 @@ const Detail = ({ id }) => {
                             height={24}
                           />
                         </Button>
-                      )}
                       <Button
                         variant={"outline"}
                         onClick={() => handleAddToWishlist(product)}
