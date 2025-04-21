@@ -4,6 +4,17 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import Container from "../container";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +25,6 @@ import {
 import TableComponent from "../table";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingBag } from "lucide-react";
-import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -28,18 +38,57 @@ import CartCard from "../cart-card";
 import axios from "axios";
 
 const CartComponent = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const routes = useRouter();
   const dispatch = useDispatch();
   const [mounted, setMounted] = useState(false);
+  const [contactInfo, setContactInfo] = useState({
+    name: "",
+    phone: "",
+  })
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleCheckout = async () => {
-    console.log(cartItems);
 
+  const handleOpenDialog = () => {
+    setIsOpen(true);
+  };
+
+  
+
+  const handleCheckout = () => {
+      if(!contactInfo.name || !contactInfo.phone){
+        toast.error("Заполните все поля");
+        return;
+      }
+      else if (contactInfo.phone.length < 12) {
+        toast.error("Номер телефона должен состоять из 12 цифр");
+      }
+      
+      else {
+        onFinish(contactInfo);
+        setIsOpen(false);
+        setContactInfo({
+          name: "",
+          phone: "",
+        })
+      }
+  };
+
+  const handleNumberInput = (e) => {
+    const value = e.target.value;
+    if (value.length > 12) {
+      toast.error("Номер телефона должен состоять из 12 цифр");
+      return;
+    }
+    setContactInfo({ ...contactInfo, phone: value });
+  };
+
+
+  const onFinish = async (contactInfo) => {
     if (!cartItems) {
       toast.error("Please enter some text.");
       return;
@@ -58,7 +107,10 @@ ID: ${product.id}
 Цена: ${product.discount_price}₽
 Итого: ${product.discount_price * product.quantity}₽
 
-Ссылка на товар: https://next-js-ecommerce-jade.vercel.app/product/${product.id}`
+Ссылка на товар: https://next-js-ecommerce-jade.vercel.app/product/${product.id}\n\n
+Имя клиента: ${contactInfo.name}
+Телефон клиента: +${contactInfo.phone}
+          `
         )} `,
       });
       toast.success("Заказ оформлен,скоро наш менеджер свяжется с вами");
@@ -69,6 +121,9 @@ ID: ${product.id}
 
     dispatch(clearCart());
   };
+
+
+
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -167,7 +222,7 @@ ID: ${product.id}
                     </CardContent>
                     <CardFooter>
                       <Button
-                        onClick={() => handleCheckout()}
+                        onClick={() => handleOpenDialog()}
                         className="w-full active:scale-95 duration-200 transition-transform flex items-center justify-between gap-2"
                       >
                         <span>
@@ -210,6 +265,54 @@ ID: ${product.id}
         </Container>
       </main>
       <Footer />
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Оформление заказа</DialogTitle>
+            <DialogDescription>
+              Пожалуйста, оставьте свое имя и номер телефона перед оформлением
+              заказа
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Имя
+              </Label>
+              <Input
+                onChange={(e) => setContactInfo({
+                  ...contactInfo,
+                  name: e.target.value,
+                })}
+                type="text"
+                name="name"
+                autoComplete="off"
+                id="name"
+                placeholder="Ваше имя"
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="phone" className="text-left">
+                Номер телефона
+              </Label>
+              <Input
+              onChange={(e) => handleNumberInput(e)}
+                type="number"
+                name="phone"
+                autoComplete="off"
+                id="phone"
+                placeholder="+7 (___) ___-__-__"
+                className="col-span-3"
+               
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => handleCheckout()} type="submit">Оформить заказ</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
