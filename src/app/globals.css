@@ -3,9 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html{
-  user-select: none;
-}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
